@@ -18,18 +18,18 @@ This system detects faces using a deep learning model and marks attendance autom
 
 ## Folder Structure
 Automated_Attendance_System/
-│
-├── models/ # Contains face detection model files
-│ ├── res10_300x300_ssd_iter_140000_fp16.caffemodel
-│ └── deploy.prototxt
-│
-├── known_faces/ # Images of students for recognition
-│
-├── attendance.csv # CSV file storing attendance logs
-│
-├── app.py # Main application script
-├── daily_core_job.py # Scheduled attendance job
-├── README.md # This file
+│<br>
+├── models/ # Contains face detection model files<br>
+│ ├── res10_300x300_ssd_iter_140000_fp16.caffemodel<br>
+│ └── deploy.prototxt<br>
+│<br>
+├── known_faces/ # Images of students for recognition<br>
+│<br>
+├── attendance.csv # CSV file storing attendance logs<br>
+│<br>
+├── app.py # Main application script<br>
+├── daily_core_job.py # Scheduled attendance job<br>
+├── README.md # This file<br>
 
 
 ---
