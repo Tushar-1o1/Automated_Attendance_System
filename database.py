@@ -1,5 +1,9 @@
 import mysql.connector
-import time
+import datetime as dt, time
+
+def year_newyear():
+    year=dt.datetime.now().year
+    return year
 
 def connect():
     try:
@@ -29,10 +33,13 @@ def connect():
                 Status VARCHAR(10)
                 )
             """)
-        mycur.execute("""
+        year=year_newyear()
+        new_year=year+1
+        str_year = f"Year_{year}_{new_year}"
+        mycur.execute(f"""
                 CREATE TABLE IF NOT EXISTS YEARLY_ATTENDANCE(
                 Enrollment_No varchar(30) PRIMARY KEY,
-                Year_2025_2026 INT
+                {str_year} INT DEFAULT 0
                 )
             """)
 
@@ -40,6 +47,8 @@ def connect():
         return True, mycur, mydb
     except mysql.connector.Error as err:
         print("Invalid Credentials:", err)
-        time.sleep(2)
+        time.sleep(5)
         return False, None, None
-connect()
+
+if __name__ == "__main__":
+    connect()
