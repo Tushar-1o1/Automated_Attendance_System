@@ -1,6 +1,8 @@
 import database 
 import datetime as dt,time
 import os
+from flask import Flask, request, render_template, redirect, url_for
+app = Flask(__name__)
 
 
 flag,mycur,mydb=database.connect()
@@ -55,19 +57,36 @@ def alter_Table(mydb,mycur):
         print("Today is not March 31.")
 
 
+#this is to mark atttendance
 def mark_attendance(enrollment_number):
     try:
-        files=dir_file()
+        files = dir_file()
         file_names_without_ext = [os.path.splitext(f)[0] for f in files]
         if enrollment_number in file_names_without_ext:
-            date=tdate()
-            status='present'
-            mycur.execute("INSERT INTO ATTENDANCE (Enrollment_No, Date, Status) VALUES (%s, %s, %s)",(enrollment_number, date, status))
+            date = tdate()
+            status = 'present'
+            mycur.execute("INSERT INTO ATTENDANCE (Enrollment_No, Date, Status) VALUES (%s, %s, %s)", (enrollment_number, date, status))
             mydb.commit()
+            return True
         else:
-            print(files)
+            return False
     except Exception as e:
         print(e)
+        return False
 
-mark_attendance('12345')
-#alter_Table(mydb,mycur)
+
+# Web Routes
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    message = ''
+    if request.method == 'POST':
+        enrollment = request.form['enrollment']
+        success = mark_attendance(enrollment)
+        if success:
+            message = f"Attendance marked for {enrollment}"
+        else:
+            message = f"Enrollment number {enrollment} not found in known_faces"
+    return render_template('home.html', message=message)
+
+if __name__ == '__main__':
+    app.run(debug=True)
