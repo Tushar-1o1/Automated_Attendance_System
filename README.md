@@ -41,9 +41,9 @@ Automated_Attendance_System/
    git clone https://github.com/yourusername/Automated_Attendance_System.git
    cd Automated_Attendance_System
 2. Requirements
-   pip install opencv-pytho
-   pip install face_recognition
-   pip install numpy
-   pip install pandas
-   pip install mysql-connector-python
-   pip install https://github.com/omwaman1/dlib_wheel_for_python/releases/download/dlib-python3.13.5/dlib-20.0.0-cp313-cp313-win_amd64.whl
+   pip install opencv-pytho<br>
+   pip install face_recognition<br>
+   pip install numpy<br>
+   pip install pandas<br>
+   pip install mysql-connector-python<br>
+   pip install https://github.com/omwaman1/dlib_wheel_for_python/releases/download/dlib-python3.13.5/dlib-20.0.0-cp313-cp313-win_amd64.whl<br>
