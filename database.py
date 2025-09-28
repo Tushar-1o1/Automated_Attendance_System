@@ -27,7 +27,7 @@ def connect():
 
         mycur.execute("""
                 CREATE TABLE IF NOT EXISTS ATTENDANCE(
-                ID INT PRIMARY KEY,
+                ID INT PRIMARY KEY AUTO_INCREMENT,
                 Enrollment_No varchar(30),
                 Date DATE,
                 Status VARCHAR(10)
