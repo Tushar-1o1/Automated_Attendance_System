@@ -1,11 +1,10 @@
 import database 
 import datetime as dt,time
 import os
-from flask import Flask, request, render_template, redirect, url_for
-app = Flask(__name__)
 
 
-flag,mycur,mydb=database.connect()
+
+flag,mycur,mydb,str_year=database.connect()
 
 #get todaysdate
 def tdate():
@@ -54,18 +53,19 @@ def alter_Table(mydb,mycur):
         except Exception as err:
             print(err)
     else:
-        print("Today is not March 31.")
+        print("")
 
 
 #this is to mark atttendance
 def mark_attendance(enrollment_number):
     try:
-        files = dir_file()
+        alter_Table(mydb,mycur)
+        files=dir_file()
         file_names_without_ext = [os.path.splitext(f)[0] for f in files]
         if enrollment_number in file_names_without_ext:
-            date = tdate()
-            status = 'present'
-            mycur.execute("INSERT INTO ATTENDANCE (Enrollment_No, Date, Status) VALUES (%s, %s, %s)", (enrollment_number, date, status))
+            date=tdate()
+            status='present'
+            mycur.execute("INSERT INTO ATTENDANCE (Enrollment_No, Date, Status) VALUES (%s, %s, %s)",(enrollment_number, date, status))
             mydb.commit()
             return True
         else:
@@ -75,18 +75,38 @@ def mark_attendance(enrollment_number):
         return False
 
 
-# Web Routes
-@app.route('/', methods=['GET', 'POST'])
-def home():
-    message = ''
-    if request.method == 'POST':
-        enrollment = request.form['enrollment']
-        success = mark_attendance(enrollment)
-        if success:
-            message = f"Attendance marked for {enrollment}"
-        else:
-            message = f"Enrollment number {enrollment} not found in known_faces"
-    return render_template('home.html', message=message)
+#print info of all student    
+def student_info():
+    try:
+        mycur.execute("SELECT * FROM STUDENT")
+        result = mycur.fetchall()
+        return result
+    except Exception as e:
+        print(e)
+        return False
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    
+#print info of a particular student
+def particular_student_info(enrollment_number):
+    try:
+        mycur.execute("SELECT * FROM STUDENT WHERE Enrollment_No = %s ",(enrollment_number,))
+        result = mycur.fetchone()
+        return result
+    except Exception as e:
+        print(e)
+        return False
+    
+
+#to view attendance of student
+def view_attendance(enrollment_number):
+    try:
+        query = f"SELECT `{str_year}` FROM YEARLY_ATTENDANCE WHERE Enrollment_No = %s"
+        mycur.execute(query, (enrollment_number,))
+        result = mycur.fetchone()
+        if result:
+            return result[0]
+        else:
+            return None
+    except Exception as e:
+        print(e)
+        return False

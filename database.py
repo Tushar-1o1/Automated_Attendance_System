@@ -7,7 +7,7 @@ def year_newyear():
 
 def connect():
     try:
-        paswd=input("Enter Login Password = ")
+        paswd="123456"
         mydb=mysql.connector.connect(host="localhost",
                                      user="root",
                                      password=paswd,
@@ -39,16 +39,16 @@ def connect():
         mycur.execute(f"""
                 CREATE TABLE IF NOT EXISTS YEARLY_ATTENDANCE(
                 Enrollment_No varchar(30) PRIMARY KEY,
-                {str_year} INT DEFAULT 0
+                {str_year} INT DEFAULT 0,
                 )
             """)
 
         mydb.commit()
-        return True, mycur, mydb
+        return True, mycur, mydb, str_year
     except mysql.connector.Error as err:
         print("Invalid Credentials:", err)
         time.sleep(5)
-        return False, None, None
+        return False, None, None, None
 
 if __name__ == "__main__":
     connect()
