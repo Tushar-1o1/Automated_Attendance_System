@@ -9,7 +9,7 @@ This system detects faces using a deep learning model and marks attendance autom
 
 - Real-time face detection using OpenCV's DNN face detector.
 - Face recognition with `face_recognition` library.
-- Attendance recorded and saved in a CSV file.
+- Attendance recorded and saved in a CSV file and MySQL database.
 - Supports multiple students with known face encodings.
 - Yearly attendance tracking in MySQL database.
 - Easily extensible with new faces/models.
@@ -41,9 +41,10 @@ Automated_Attendance_System/
    git clone https://github.com/yourusername/Automated_Attendance_System.git
    cd Automated_Attendance_System
 2. Requirements
+   pip install https://github.com/omwaman1/dlib_wheel_for_python/releases/download/dlib-python3.13.5/dlib-20.0.0-cp313-cp313-win_amd64.whl<br>
    pip install opencv-pytho<br>
    pip install face_recognition<br>
    pip install numpy<br>
    pip install pandas<br>
    pip install mysql-connector-python<br>
-   pip install https://github.com/omwaman1/dlib_wheel_for_python/releases/download/dlib-python3.13.5/dlib-20.0.0-cp313-cp313-win_amd64.whl<br>
+   
