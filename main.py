@@ -133,5 +133,3 @@ def delete_after_78am():
             print("ℹ️ File not found, nothing to delete.")
     else:
         print("⏳ It's not time yet (before 6 AM)")
-
-yearly_attendance(mycur,mydb,'12345')
